@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "Sports Stats API - Multi-Sport Dashboard",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -20,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Bbeierle12/Sports-Tracker.git"
+    "url": "https://github.com/Bbeierle12/Sports-Stats-API.git"
   },
   "author": "",
   "license": "MIT"
