@@ -38,9 +38,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).end();
   }
 
-  const { path } = req.query;
-  const pathSegments = Array.isArray(path) ? path : (path ? [path] : []);
-  const fullPath = '/' + pathSegments.join('/');
+  // Get path from URL, stripping /api prefix
+  const url = new URL(req.url || '/', `https://${req.headers.host}`);
+  const fullPath = url.pathname.replace(/^\/api/, '') || '/';
+  const pathSegments = fullPath.split('/').filter(Boolean);
 
   try {
     // Health check
