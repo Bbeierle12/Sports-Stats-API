@@ -2,5 +2,10 @@
   "buildCommand": "pnpm run build:types && pnpm run build:web",
   "outputDirectory": "apps/web/dist",
   "installCommand": "pnpm install",
-  "framework": "vite"
+  "framework": "vite",
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 30
+    }
+  }
 }
