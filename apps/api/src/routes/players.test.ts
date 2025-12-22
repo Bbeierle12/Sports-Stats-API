@@ -30,6 +30,22 @@ describe('Players Routes', () => {
   });
 
   describe('GET /players/:playerId', () => {
+    it('should return 400 for non-numeric player ID', async () => {
+      const response = await request(app).get('/players/invalid-id');
+
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Invalid player ID');
+      expect(response.body).toHaveProperty('message', 'Player ID must be numeric');
+      expect(nhlService.getPlayerStats).not.toHaveBeenCalled();
+    });
+
+    it('should return 400 for alphanumeric player ID', async () => {
+      const response = await request(app).get('/players/abc123');
+
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Invalid player ID');
+    });
+
     it('should return player statistics for a skater', async () => {
       const mockPlayerStats = {
         playerId: 8478402,

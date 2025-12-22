@@ -6,6 +6,15 @@ const router: Router = Router();
 router.get('/:playerId', async (req: Request, res: Response) => {
   try {
     const { playerId } = req.params;
+
+    // Validate playerId is numeric
+    if (!/^\d+$/.test(playerId)) {
+      return res.status(400).json({
+        error: 'Invalid player ID',
+        message: 'Player ID must be numeric',
+      });
+    }
+
     const playerStats = await getPlayerStats(playerId);
     return res.json(playerStats);
   } catch (error) {

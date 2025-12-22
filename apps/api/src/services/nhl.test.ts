@@ -7,6 +7,7 @@ import {
   getPlayerStats,
   getTeamStats,
 } from './nhl';
+import { cache } from '../utils/cache';
 
 // Mock fetch globally
 const mockFetch = vi.fn();
@@ -17,6 +18,7 @@ const NHL_API_BASE = 'https://api-web.nhle.com/v1';
 describe('NHL Service', () => {
   beforeEach(() => {
     mockFetch.mockReset();
+    cache.clear(); // Clear cache between tests
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2024-01-15'));
   });

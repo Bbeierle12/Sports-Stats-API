@@ -27,6 +27,15 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:teamId', async (req: Request, res: Response) => {
   try {
     const { teamId } = req.params;
+
+    // Validate teamId is a valid NHL team abbreviation (2-4 letters)
+    if (!/^[A-Za-z]{2,4}$/.test(teamId)) {
+      return res.status(400).json({
+        error: 'Invalid team ID',
+        message: 'Team ID must be a 2-4 letter abbreviation (e.g., BOS, TOR, VGK)',
+      });
+    }
+
     const teamStats = await getTeamStats(teamId);
 
     if (!teamStats) {

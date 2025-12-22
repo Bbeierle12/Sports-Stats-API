@@ -144,6 +144,22 @@ describe('Games Routes', () => {
   });
 
   describe('GET /games/:gameId', () => {
+    it('should return 400 for non-numeric game ID', async () => {
+      const response = await request(app).get('/games/invalid-id');
+
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Invalid game ID');
+      expect(response.body).toHaveProperty('message', 'Game ID must be numeric');
+      expect(nhlService.getGameById).not.toHaveBeenCalled();
+    });
+
+    it('should return 400 for alphanumeric game ID', async () => {
+      const response = await request(app).get('/games/abc123');
+
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Invalid game ID');
+    });
+
     it('should return game details by ID', async () => {
       const mockGame = {
         id: 2023020789,

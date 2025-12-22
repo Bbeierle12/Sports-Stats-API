@@ -124,6 +124,32 @@ describe('Teams Routes', () => {
   });
 
   describe('GET /teams/:teamId', () => {
+    it('should return 400 for invalid team ID format (numbers)', async () => {
+      const response = await request(app).get('/teams/12345');
+
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Invalid team ID');
+      expect(response.body).toHaveProperty(
+        'message',
+        'Team ID must be a 2-4 letter abbreviation (e.g., BOS, TOR, VGK)'
+      );
+      expect(nhlService.getTeamStats).not.toHaveBeenCalled();
+    });
+
+    it('should return 400 for team ID that is too long', async () => {
+      const response = await request(app).get('/teams/ABCDE');
+
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Invalid team ID');
+    });
+
+    it('should return 400 for team ID that is too short', async () => {
+      const response = await request(app).get('/teams/A');
+
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Invalid team ID');
+    });
+
     it('should return team stats by abbreviation', async () => {
       const mockTeamStats = {
         teamName: { default: 'Bruins' },

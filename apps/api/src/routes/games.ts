@@ -33,6 +33,15 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:gameId', async (req: Request, res: Response) => {
   try {
     const { gameId } = req.params;
+
+    // Validate gameId is numeric
+    if (!/^\d+$/.test(gameId)) {
+      return res.status(400).json({
+        error: 'Invalid game ID',
+        message: 'Game ID must be numeric',
+      });
+    }
+
     const gameData = await getGameById(gameId);
     return res.json(gameData);
   } catch (error) {
