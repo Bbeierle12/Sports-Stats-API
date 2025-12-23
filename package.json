@@ -2,7 +2,7 @@
   "name": "sports-stats-api",
   "version": "1.0.0",
   "private": true,
-  "description": "Sports Stats API - Multi-Sport Dashboard",
+  "description": "Sports Stats API - Multi-Sport REST API",
   "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=18",
@@ -13,13 +13,10 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm --filter @sports-stats-api/api dev & pnpm --filter @sports-stats-api/web dev",
-    "dev:api": "pnpm --filter @sports-stats-api/api dev",
-    "dev:web": "pnpm --filter @sports-stats-api/web dev",
-    "build": "pnpm -r build",
+    "dev": "pnpm --filter @sports-stats-api/api dev",
+    "build": "pnpm run build:types && pnpm run build:api",
     "build:types": "pnpm --filter @sports-stats-api/types build",
     "build:api": "pnpm --filter @sports-stats-api/api build",
-    "build:web": "pnpm --filter @sports-stats-api/web build",
     "test": "pnpm -r test",
     "test:api": "pnpm --filter @sports-stats-api/api test"
   },
