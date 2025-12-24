@@ -52,11 +52,17 @@ export function useSports(options?: UseSportsOptions) {
 
 /**
  * Fetch games/scoreboard for a specific sport
+ * @param sportId - The sport identifier
+ * @param date - Optional date in YYYYMMDD format
  */
-export function useSportGames(sportId: string | undefined) {
+export function useSportGames(sportId: string | undefined, date?: string) {
+  const endpoint = date
+    ? `/sports/${sportId}/games?date=${date}`
+    : `/sports/${sportId}/games`;
+
   return useQuery({
-    queryKey: ['sport-games', sportId],
-    queryFn: () => apiGet<SportGamesResponse>(`/sports/${sportId}/games`),
+    queryKey: ['sport-games', sportId, date],
+    queryFn: () => apiGet<SportGamesResponse>(endpoint),
     enabled: !!sportId,
     refetchInterval: 30000, // 30 seconds for live updates
     staleTime: 10000, // 10 seconds

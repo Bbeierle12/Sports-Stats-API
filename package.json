@@ -23,5 +23,8 @@
     "url": "https://github.com/Bbeierle12/Sports-Tracker.git"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@vercel/node": "^3.2.0"
+  }
 }

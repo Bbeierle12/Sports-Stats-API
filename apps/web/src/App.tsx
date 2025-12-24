@@ -1,6 +1,7 @@
-import { Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import SportDashboard from './pages/SportDashboard'
+import TeamStatistics from './pages/TeamStatistics'
+import PlayerStatistics from './pages/PlayerStatistics'
 import Header from './components/layout/Header'
 import Sidebar from './components/layout/Sidebar'
 
@@ -12,15 +13,19 @@ function App() {
         <Sidebar />
         <main className="flex-1 p-6">
           <Routes>
-            {/* NHL Dashboard (primary) */}
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/standings" element={<div className="text-white text-xl">Standings - Coming Soon</div>} />
-            <Route path="/teams" element={<div className="text-white text-xl">Teams - Coming Soon</div>} />
-            <Route path="/players" element={<div className="text-white text-xl">Players - Coming Soon</div>} />
+            {/* Main dashboard - shows first enabled sport or sports selection */}
+            <Route path="/" element={<SportDashboard />} />
 
-            {/* Multi-sport routes */}
+            {/* Individual sport routes */}
             <Route path="/sports" element={<SportDashboard />} />
             <Route path="/sports/:sportId" element={<SportDashboard />} />
+
+            {/* Statistics pages */}
+            <Route path="/team-statistics" element={<TeamStatistics />} />
+            <Route path="/player-statistics" element={<PlayerStatistics />} />
+
+            {/* Catch-all redirect */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
       </div>
